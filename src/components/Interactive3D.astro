@@ -1,0 +1,162 @@
+---
+---
+
+<div class="interactive-3d-container" id="interactive-3d-container">
+    <canvas id="3d-canvas"></canvas>
+</div>
+
+<style>
+    .interactive-3d-container {
+        width: 100%;
+        height: 60vh;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5rem 0;
+        z-index: 15;
+    }
+
+    #3d-canvas {
+        max-width: 100%;
+        max-height: 100%;
+        outline: none;
+    }
+</style>
+
+<script>
+    import * as THREE from 'three';
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    class CyberObject3D {
+        private scene: THREE.Scene;
+        private camera: THREE.PerspectiveCamera;
+        private renderer: THREE.WebGLRenderer;
+        private object: THREE.Group;
+        private mouseInfo: THREE.Vector2;
+        private targetRotation: THREE.Vector2;
+
+        constructor() {
+            const container = document.getElementById('interactive-3d-container');
+            const canvas = document.getElementById('3d-canvas') as HTMLCanvasElement;
+            if(!container || !canvas) return;
+
+            this.scene = new THREE.Scene();
+            
+            // Camera setup
+            this.camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+            this.camera.position.z = 20;
+
+            this.renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            this.renderer.setSize(container.clientWidth, container.clientHeight);
+            this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            this.mouseInfo = new THREE.Vector2(0, 0);
+            this.targetRotation = new THREE.Vector2(0, 0);
+
+            // Create abstract Cyberpunk Amazonian object (TorusKnot combined with spikes)
+            this.object = new THREE.Group();
+
+            const geometryMain = new THREE.TorusKnotGeometry(4, 1.2, 100, 16);
+            const materialMain = new THREE.MeshPhysicalMaterial({
+                color: 0x39ff14, // Neon green
+                metalness: 0.8,
+                roughness: 0.2,
+                wireframe: true,
+                emissive: 0x113300,
+                transparent: true,
+                opacity: 0.8
+            });
+            const meshMain = new THREE.Mesh(geometryMain, materialMain);
+            this.object.add(meshMain);
+
+            const geometryCore = new THREE.IcosahedronGeometry(2.5, 0);
+            const materialCore = new THREE.MeshStandardMaterial({
+                color: 0xff00ff, // Magenta
+                metalness: 1.0,
+                roughness: 0.1,
+                emissive: 0x330033
+            });
+            const meshCore = new THREE.Mesh(geometryCore, materialCore);
+            this.object.add(meshCore);
+
+            this.scene.add(this.object);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            this.scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0x39ff14, 2);
+            dirLight.position.set(5, 5, 5);
+            this.scene.add(dirLight);
+            
+            const dirLight2 = new THREE.DirectionalLight(0xff00ff, 2);
+            dirLight2.position.set(-5, -5, 5);
+            this.scene.add(dirLight2);
+
+            // Resize handle
+            window.addEventListener('resize', () => {
+                if(!container) return;
+                this.camera.aspect = container.clientWidth / container.clientHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            // Interactive hover rotation
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Normalize from -1 to 1
+                this.mouseInfo.x = (x / container.clientWidth) * 2 - 1;
+                this.mouseInfo.y = -(y / container.clientHeight) * 2 + 1;
+                
+                this.targetRotation.y = this.mouseInfo.x * Math.PI * 0.2;
+                this.targetRotation.x = -this.mouseInfo.y * Math.PI * 0.2;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                this.targetRotation.set(0, 0);
+            });
+
+            // GSAP Scroll effect
+            gsap.to(this.object.rotation, {
+                y: Math.PI * 2,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: container,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+
+            this.animate();
+        }
+
+        private animate() {
+            requestAnimationFrame(this.animate.bind(this));
+            
+            // Continual slow rotation
+            this.object.rotation.x += 0.002;
+            this.object.rotation.y += 0.003;
+            this.object.rotation.z += 0.001;
+
+            // Smoothly move towards target mouse rotation
+            this.object.rotation.x += (this.targetRotation.x - this.object.rotation.x + this.object.rotation.x) * 0.1 * 0; // Keeping it mainly for base rotation, apply target diff
+            // Actual interactive tweak
+            meshMain: this.object.children[0].rotation.x = this.targetRotation.x * 2.0;
+            meshMain: this.object.children[0].rotation.y = this.targetRotation.y * 2.0;
+
+            this.renderer.render(this.scene, this.camera);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        new CyberObject3D();
+    });
+</script>

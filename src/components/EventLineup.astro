@@ -1,0 +1,171 @@
+---
+import events from '../data/prod.json';
+---
+
+<section class="events-section" id="events">
+    <div class="container">
+        <h2 class="glitch-effect" data-text="UPCOMING EVENTS">UPCOMING EVENTS</h2>
+        
+        <div class="events-grid">
+            {events.map((event) => (
+                <article class="event-card">
+                    <div class="event-glow"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-date">{event.date}</span>
+                            <span class="event-status">{event.status}</span>
+                        </div>
+                        <h3 class="event-title">{event.title}</h3>
+                        <p class="event-location">{event.location}</p>
+                        <div class="event-footer">
+                            <span class="event-price">{event.price}</span>
+                            <button class="btn-buy">GET TICKETS</button>
+                        </div>
+                    </div>
+                </article>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    .events-section {
+        padding: 8rem 2rem;
+        position: relative;
+        z-index: 20;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    h2 {
+        font-size: 3rem;
+        margin-bottom: 4rem;
+        color: var(--color-text-accent);
+        text-align: center;
+    }
+
+    .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 3rem;
+    }
+
+    .event-card {
+        background: rgba(43, 43, 43, 0.4);
+        border: 1px solid rgba(57, 255, 20, 0.2);
+        padding: 2rem;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(8px);
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .event-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--color-neon-green);
+    }
+
+    .event-glow {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background: var(--color-neon-magenta);
+        filter: blur(80px);
+        top: -50px;
+        right: -50px;
+        opacity: 0.2;
+        transition: opacity 0.3s ease, background 0.3s ease;
+    }
+
+    .event-card:hover .event-glow {
+        opacity: 0.5;
+        background: var(--color-neon-green);
+    }
+
+    .event-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .event-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        font-family: var(--font-industrial);
+        font-size: 0.9rem;
+        color: var(--color-neon-green);
+        letter-spacing: 1px;
+    }
+
+    .event-title {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: var(--color-text-accent);
+    }
+
+    .event-location {
+        color: #888;
+        margin-bottom: 2rem;
+        font-family: var(--font-industrial);
+    }
+
+    .event-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 1.5rem;
+    }
+
+    .event-price {
+        font-size: 1.5rem;
+        font-family: var(--font-cyber);
+        font-weight: 700;
+        color: var(--color-neon-magenta);
+    }
+
+    .btn-buy {
+        background: transparent;
+        border: 1px solid var(--color-neon-green);
+        color: var(--color-neon-green);
+        padding: 0.6rem 1.5rem;
+        font-family: var(--font-cyber);
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-buy:hover {
+        background: var(--color-neon-green);
+        color: var(--color-bg-dark);
+        box-shadow: 0 0 15px var(--color-neon-green);
+    }
+</style>
+
+<script>
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.utils.toArray('.event-card').forEach((card: any, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom-=100",
+                    toggleActions: "play none none reverse"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.2,
+                ease: "power2.out"
+            });
+        });
+    });
+</script>

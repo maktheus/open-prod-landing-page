@@ -1,0 +1,702 @@
+[
+  {
+    "title": "OPEN PROD EVENT // 001",
+    "date": "2026-08-22",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 002",
+    "date": "2026-07-28",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 003",
+    "date": "2026-04-06",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 004",
+    "date": "2026-09-06",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 005",
+    "date": "2026-06-21",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 006",
+    "date": "2026-05-16",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 007",
+    "date": "2026-06-12",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 008",
+    "date": "2026-02-24",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 009",
+    "date": "2026-07-02",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 010",
+    "date": "2026-05-08",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 011",
+    "date": "2026-10-24",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 012",
+    "date": "2026-05-21",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 013",
+    "date": "2026-11-18",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 014",
+    "date": "2026-10-11",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 015",
+    "date": "2026-09-28",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 016",
+    "date": "2026-09-12",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 017",
+    "date": "2026-10-11",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 018",
+    "date": "2026-01-19",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 019",
+    "date": "2026-05-25",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 020",
+    "date": "2026-02-23",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 021",
+    "date": "2026-05-25",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 022",
+    "date": "2026-09-06",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 023",
+    "date": "2026-04-01",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 024",
+    "date": "2026-02-26",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 025",
+    "date": "2026-03-21",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 026",
+    "date": "2026-02-05",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 027",
+    "date": "2026-07-13",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 028",
+    "date": "2026-10-12",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 029",
+    "date": "2026-12-21",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 030",
+    "date": "2026-12-14",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 031",
+    "date": "2026-09-28",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 032",
+    "date": "2026-06-20",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 033",
+    "date": "2026-07-27",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 034",
+    "date": "2026-04-23",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 035",
+    "date": "2026-03-19",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 036",
+    "date": "2026-05-26",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 037",
+    "date": "2026-11-25",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 038",
+    "date": "2026-03-04",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 039",
+    "date": "2026-03-13",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 040",
+    "date": "2026-03-16",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 041",
+    "date": "2026-04-05",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 042",
+    "date": "2026-12-18",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 043",
+    "date": "2026-05-19",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 044",
+    "date": "2026-12-28",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 045",
+    "date": "2026-03-14",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 046",
+    "date": "2026-07-17",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 047",
+    "date": "2026-01-07",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 048",
+    "date": "2026-05-16",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 049",
+    "date": "2026-10-28",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 050",
+    "date": "2026-10-03",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 051",
+    "date": "2026-03-12",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 052",
+    "date": "2026-04-28",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 053",
+    "date": "2026-05-22",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 054",
+    "date": "2026-09-11",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 055",
+    "date": "2026-07-18",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 056",
+    "date": "2026-02-04",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 057",
+    "date": "2026-06-28",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 058",
+    "date": "2026-09-05",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 059",
+    "date": "2026-02-23",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 060",
+    "date": "2026-08-24",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 061",
+    "date": "2026-03-26",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 062",
+    "date": "2026-04-04",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 063",
+    "date": "2026-02-19",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 064",
+    "date": "2026-02-23",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 065",
+    "date": "2026-02-24",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 066",
+    "date": "2026-03-24",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 067",
+    "date": "2026-06-06",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 068",
+    "date": "2026-08-17",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 069",
+    "date": "2026-08-04",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 070",
+    "date": "2026-10-11",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 071",
+    "date": "2026-11-08",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 072",
+    "date": "2026-11-26",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 073",
+    "date": "2026-11-10",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 074",
+    "date": "2026-07-17",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 075",
+    "date": "2026-12-16",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 076",
+    "date": "2026-01-22",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 077",
+    "date": "2026-04-18",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 078",
+    "date": "2026-12-11",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 079",
+    "date": "2026-09-09",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 080",
+    "date": "2026-08-10",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 081",
+    "date": "2026-09-22",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 082",
+    "date": "2026-01-20",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 083",
+    "date": "2026-06-11",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 084",
+    "date": "2026-06-26",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 085",
+    "date": "2026-11-12",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 086",
+    "date": "2026-09-08",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 087",
+    "date": "2026-06-24",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 088",
+    "date": "2026-01-27",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 089",
+    "date": "2026-09-11",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 090",
+    "date": "2026-03-03",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 091",
+    "date": "2026-10-03",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 092",
+    "date": "2026-06-05",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 093",
+    "date": "2026-06-07",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 094",
+    "date": "2026-08-23",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 095",
+    "date": "2026-11-28",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 096",
+    "date": "2026-04-28",
+    "location": "THE GREENHOUSE CLUB",
+    "price": "$50",
+    "status": "ON SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 097",
+    "date": "2026-07-25",
+    "location": "JUNGLE SECTOR 7",
+    "price": "$60",
+    "status": "SELLING FAST"
+  },
+  {
+    "title": "OPEN PROD EVENT // 098",
+    "date": "2026-03-14",
+    "location": "NEON WAREHOUSE",
+    "price": "$70",
+    "status": "PRE-SALE"
+  },
+  {
+    "title": "OPEN PROD EVENT // 099",
+    "date": "2026-12-07",
+    "location": "UNDERGROUND VAULT",
+    "price": "$80",
+    "status": "SOLD OUT"
+  },
+  {
+    "title": "OPEN PROD EVENT // 100",
+    "date": "2026-12-17",
+    "location": "FACTORY C-4, MANAUS",
+    "price": "$40",
+    "status": "ON SALE"
+  }
+]

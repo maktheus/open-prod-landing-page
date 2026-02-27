@@ -1,0 +1,23 @@
+{
+    "name": "open-prod",
+    "version": "1.0.0",
+    "description": "Open Prod Landing Page",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "gsap": "^3.12.5",
+        "three": "^0.160.0"
+    },
+    "devDependencies": {
+        "@types/three": "^0.160.0",
+        "astro": "^4.5.0",
+        "typescript": "^5.3.3"
+    }
+}

@@ -1,0 +1,136 @@
+---
+import EventHero from '../components/EventHero.astro';
+import EventLineup from '../components/EventLineup.astro';
+import FluidBackground from '../components/FluidBackground.astro';
+import TeamOrganization from '../components/TeamOrganization.astro';
+import Interactive3D from '../components/Interactive3D.astro';
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Prod | Electronic Events</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Open Prod - The ultimate cyberpunk electronic music experience in the Amazon.">
+</head>
+<body>
+    <FluidBackground />
+    
+    <div class="main-content">
+        <header class="navbar">
+            <div class="logo">OPEN PROD</div>
+            <nav>
+                <a href="#events">Events</a>
+                <a href="#about">About Us</a>
+                <a href="#tickets" class="btn-neon">Tickets</a>
+            </nav>
+        </header>
+
+        <main>
+            <EventHero />
+            <Interactive3D />
+            <EventLineup />
+            <TeamOrganization />
+        </main>
+        
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2026 Open Prod. All rights reserved.</p>
+                <p>Industrial Amazonian Experience.</p>
+            </div>
+        </footer>
+    </div>
+
+    <style>
+        .main-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            pointer-events: none; /* Let clicks pass to background if needed, but we will re-enable it for specific childs */
+        }
+        
+        /* Re-enable pointer events for interactive content */
+        .main-content > * {
+            pointer-events: auto;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 4rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(5, 5, 5, 0.4);
+            border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+        }
+
+        .logo {
+            font-family: var(--font-cyber);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-neon-magenta);
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--color-text-main);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--color-neon-green);
+        }
+
+        .btn-neon {
+            border: 1px solid var(--color-neon-green);
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            color: var(--color-neon-green);
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn-neon:hover {
+            background: var(--color-neon-green);
+            color: var(--color-bg-dark);
+            box-shadow: 0 0 15px var(--color-neon-green);
+        }
+
+        footer {
+            padding: 4rem;
+            text-align: center;
+            background: linear-gradient(0deg, rgba(5,5,5,1) 0%, rgba(5,5,5,0) 100%);
+            border-top: 1px solid rgba(255, 0, 255, 0.2);
+        }
+
+        .footer-content {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 2rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "project_name": "Open Prod",
+  "framework": "Astro",
+  "styling": "Vanilla CSS & CSS Modules",
+  "core_libraries": ["three", "gsap"],
+  "aesthetics": [
+    "Cyberpunk",
+    "Industrial",
+    "Amazonense (neon flora, dark tribal motifs, futuristic greenery)",
+    "Dark mode",
+    "High contrast (neon greens, magentas, dark grays/blacks)"
+  ],
+  "key_features": [
+    {
+      "name": "Immersive Background",
+      "description": "Interactive WebGL liquid/fluid simulation that reacts to mouse movement."
+    },
+    {
+      "name": "3D Interactive Element",
+      "description": "Central 3D rotating object (e.g., logo or cyberpunk artifact) synchronized with scroll/mouse."
+    },
+    {
+      "name": "Shotgun-style Event Ticketing",
+      "description": "Fast, high-conversion, clean UI for listing upcoming electronic music events and buying tickets."
+    },
+    {
+      "name": "Organization Roster",
+      "description": "Boilerplate section displaying 11 organization members with dynamic, slightly glitchy hover effects."
+    }
+  ],
+  "iterations_target": 100,
+  "status": "In Progress"
+}
