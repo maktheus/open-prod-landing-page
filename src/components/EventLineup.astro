@@ -203,60 +203,68 @@ const initialEvents = events.slice(0, 10).map(e => ({
     /* Rarity Styles - Focused on Readability */
     
     /* Standard (White/Silver) */
-    .rarity-standard { border-color: rgba(220, 220, 220, 0.3); }
+    .rarity-standard { border-color: rgba(220, 220, 220, 0.5); }
     .rarity-standard .event-glow { background: #dcdcdc; opacity: 0.1; }
-    .rarity-standard .rarity-badge::after { content: 'STANDARD'; color: #aaaaaa; font-family: var(--font-industrial); font-size: 0.8rem; font-weight: bold;}
+    .rarity-standard .rarity-badge::after { content: 'STANDARD'; color: #cccccc; font-family: var(--font-industrial); font-size: 0.8rem; font-weight: bold;}
     .rarity-standard .event-price { color: #ffffff; text-shadow: 0 0 5px rgba(220,220,220,0.5); }
     .rarity-standard .event-title { color: #ffffff; }
 
     /* Uncommon (Cyan) */
-    .rarity-uncommon { border-color: rgba(0, 255, 255, 0.4); }
-    .rarity-uncommon .event-glow { background: #00ffff; opacity: 0.1; }
-    .rarity-uncommon .rarity-badge::after { content: 'UNCOMMON'; color: #00cccc; font-family: var(--font-industrial); font-size: 0.8rem; font-weight: bold;}
-    .rarity-uncommon .event-price { color: #e6ffff; text-shadow: 0 0 8px rgba(0,255,255,0.6); }
+    .rarity-uncommon { border-color: rgba(0, 255, 255, 0.6); }
+    .rarity-uncommon .event-glow { background: #00ffff; opacity: 0.15; }
+    .rarity-uncommon .rarity-badge::after { content: 'UNCOMMON'; color: #00ffff; font-family: var(--font-industrial); font-size: 0.8rem; font-weight: bold;}
+    .rarity-uncommon .event-price { color: #ffffff; text-shadow: 0 0 8px rgba(0,255,255,0.8); }
     .rarity-uncommon .event-title { color: #ffffff; }
-    .rarity-uncommon:hover { box-shadow: 0 0 15px rgba(0, 255, 255, 0.2); }
+    .rarity-uncommon:hover { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
 
     /* Rare (Blue) */
-    .rarity-rare { border-color: rgba(60, 130, 255, 0.5); }
-    .rarity-rare .event-glow { background: #3c82ff; opacity: 0.15; }
+    .rarity-rare { border-color: rgba(60, 130, 255, 0.7); }
+    .rarity-rare .event-glow { background: #3c82ff; opacity: 0.2; }
     .rarity-rare .rarity-badge::after { content: 'RARE'; color: #7cb0ff; font-family: var(--font-industrial); font-size: 0.8rem; font-weight: bold; text-shadow: 0 0 5px rgba(60, 130, 255, 0.5);}
-    .rarity-rare .event-price { color: #e6f0ff; text-shadow: 0 0 8px rgba(60, 130, 255, 0.8); }
+    .rarity-rare .event-price { color: #ffffff; text-shadow: 0 0 10px rgba(60, 130, 255, 0.9); }
     .rarity-rare .event-title { color: #ffffff; }
-    .rarity-rare:hover { box-shadow: 0 0 20px rgba(60, 130, 255, 0.3); }
+    .rarity-rare:hover { box-shadow: 0 0 25px rgba(60, 130, 255, 0.4); }
 
     /* Epic (Magenta/Purple) */
-    .rarity-epic { border-color: rgba(210, 50, 255, 0.6); }
-    .rarity-epic .event-glow { background: #d232ff; opacity: 0.15; }
+    .rarity-epic { border-color: rgba(210, 50, 255, 0.8); }
+    .rarity-epic .event-glow { background: #d232ff; opacity: 0.2; }
     .rarity-epic .rarity-badge::after { content: 'EPIC'; color: #e680ff; font-family: var(--font-industrial); font-size: 0.8rem; font-weight: bold; text-shadow: 0 0 8px rgba(210, 50, 255, 0.8);}
-    .rarity-epic .event-price { color: #fae6ff; text-shadow: 0 0 10px rgba(210, 50, 255, 0.9); }
+    .rarity-epic .event-price { color: #ffffff; text-shadow: 0 0 12px rgba(210, 50, 255, 1); }
     .rarity-epic .event-title { color: #ffffff; }
-    .rarity-epic:hover { box-shadow: 0 0 25px rgba(210, 50, 255, 0.4); }
+    .rarity-epic:hover { box-shadow: 0 0 30px rgba(210, 50, 255, 0.5); }
 
     /* Legendary (Gold) */
-    .rarity-legendary { border-color: rgba(255, 180, 0, 0.8); background: rgba(20, 15, 0, 0.8); }
-    .rarity-legendary .event-glow { background: #ffb400; opacity: 0.2; animation: legendPulse 2s infinite alternate; }
+    .rarity-legendary { border-color: rgba(255, 180, 0, 0.9); background: rgba(15, 12, 5, 0.9); }
+    .rarity-legendary .event-glow { background: #ffb400; opacity: 0.25; animation: legendPulse 2s infinite alternate; }
     .rarity-legendary .rarity-badge::after { content: 'LEGENDARY'; color: #ffd700; font-family: var(--font-cyber); font-size: 1rem; font-weight: 800; text-shadow: 0 0 10px rgba(255, 180, 0, 1);}
-    .rarity-legendary .event-price { color: #fffbeb; text-shadow: 0 0 15px rgba(255, 180, 0, 1); }
+    .rarity-legendary .event-price { color: #ffffff; text-shadow: 0 0 15px rgba(255, 180, 0, 1); }
     .rarity-legendary .event-title { color: #ffd700; text-shadow: 0 0 5px rgba(255, 180, 0, 0.3); }
-    .rarity-legendary:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 0 30px rgba(255, 180, 0, 0.5); }
+    .rarity-legendary:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 0 40px rgba(255, 180, 0, 0.6); }
 
     /* Mythic (Red/Crimson) */
-    .rarity-mythic { border-color: rgba(255, 30, 30, 0.9); background: rgba(30, 0, 0, 0.9); }
-    .rarity-mythic .event-glow { background: #ff1e1e; opacity: 0.25; animation: mythicPulse 1.5s infinite alternate; }
+    .rarity-mythic { border-color: rgba(255, 30, 30, 1); background: rgba(20, 0, 0, 0.9); }
+    .rarity-mythic .event-glow { background: #ff1e1e; opacity: 0.3; animation: mythicPulse 1.5s infinite alternate; }
     .rarity-mythic .rarity-badge::after { content: 'MYTHIC'; color: #ff6666; font-family: var(--font-cyber); font-size: 1.1rem; font-weight: 800; text-shadow: 0 0 15px rgba(255, 30, 30, 1);}
-    .rarity-mythic .event-price { color: #ffe6e6; text-shadow: 0 0 15px rgba(255, 30, 30, 1); }
+    .rarity-mythic .event-price { color: #ffffff; text-shadow: 0 0 15px rgba(255, 30, 30, 1); }
     .rarity-mythic .event-title { color: #ff6666; text-shadow: 0 0 10px rgba(255, 30, 30, 0.8); }
-    .rarity-mythic:hover { transform: translateY(-15px) scale(1.03); box-shadow: 0 0 40px rgba(255, 30, 30, 0.6); }
+    .rarity-mythic:hover { transform: translateY(-15px) scale(1.03); box-shadow: 0 0 50px rgba(255, 30, 30, 0.7); }
 
     @keyframes legendPulse {
-        0% { opacity: 0.1; transform: scale(1); }
-        100% { opacity: 0.3; transform: scale(1.1); }
+        0% { opacity: 0.15; transform: scale(1); }
+        100% { opacity: 0.35; transform: scale(1.1); }
     }
     
     @keyframes mythicPulse {
-        0% { opacity: 0.15; transform: scale(1); }
-        100% { opacity: 0.4; transform: scale(1.15); }
+        0% { opacity: 0.2; transform: scale(1); }
+        100% { opacity: 0.5; transform: scale(1.15); }
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 600px) {
+        .events-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+        .reveal-overlay { height: 100px; }
+        .reveal-text { font-size: 1.2rem; }
+        .event-card { padding: 1.5rem; }
     }
 
 </style>
