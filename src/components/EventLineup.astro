@@ -1,14 +1,20 @@
 ---
 import events from '../data/prod.json';
+import EventLootBox from './EventLootBox.astro';
+
+// We initially only render these, but hide them with CSS/JS until the lootbox triggers.
+const initialEvents = events.slice(0, 6); // Just show the first 6 initially
 ---
 
 <section class="events-section" id="events">
     <div class="container">
         <h2 class="glitch-effect" data-text="UPCOMING EVENTS">UPCOMING EVENTS</h2>
         
-        <div class="events-grid">
-            {events.map((event) => (
-                <article class="event-card">
+        <EventLootBox />
+
+        <div class="events-grid" id="events-grid" style="display: none;">
+            {initialEvents.map((event, index) => (
+                <article class="event-card" data-index={index}>
                     <div class="event-glow"></div>
                     <div class="event-content">
                         <div class="event-header">
@@ -148,23 +154,33 @@ import events from '../data/prod.json';
 
 <script>
     import gsap from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-    gsap.registerPlugin(ScrollTrigger);
 
     document.addEventListener("DOMContentLoaded", () => {
-        gsap.utils.toArray('.event-card').forEach((card: any, i) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top bottom-=100",
-                    toggleActions: "play none none reverse"
-                },
-                y: 50,
-                opacity: 0,
+        const eventsGrid = document.getElementById('events-grid');
+        if (!eventsGrid) return;
+
+        // Listen for the lootbox event
+        window.addEventListener('lootbox-opened', () => {
+            // Unhide the grid
+            eventsGrid.style.display = 'grid';
+
+            // GSAP Stagger Reveal (The Drops)
+            const cards = gsap.utils.toArray('.event-card');
+            
+            // Set initial state for animation
+            gsap.set(cards, { y: -100, scale: 0.8, opacity: 0 });
+
+            // Drop them in one by one dynamically
+            gsap.to(cards, {
+                y: 0,
+                scale: 1,
+                opacity: 1,
                 duration: 0.8,
-                delay: i * 0.2,
-                ease: "power2.out"
+                stagger: 0.15,
+                ease: "back.out(1.7)", // Dopamine bounce effect
+                onComplete: () => {
+                   // Clean up inline styles from GSAP if needed
+                }
             });
         });
     });

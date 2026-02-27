@@ -1,0 +1,305 @@
+---
+---
+
+<div class="lootbox-container" id="lootbox-area">
+    <div class="lootbox-wrapper" id="lootbox-trigger">
+        <div class="lootbox-glow" id="lb-glow"></div>
+        <div class="lootbox" id="lootbox">
+            <div class="lootbox-face front">CRATE</div>
+            <div class="lootbox-face back"></div>
+            <div class="lootbox-face left"></div>
+            <div class="lootbox-face right"></div>
+            <div class="lootbox-face top"></div>
+            <div class="lootbox-face bottom"></div>
+        </div>
+        
+        <div class="instruction-text" id="lb-instruction">
+            <span class="glitch-effect" data-text="TAP OR HOLD TO UNLOCK SECRETS">TAP OR HOLD TO UNLOCK SECRETS</span>
+        </div>
+        
+        <div class="progress-bar-container" id="progress-container">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .lootbox-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 4rem 0 2rem 0;
+        perspective: 1000px;
+    }
+
+    .lootbox-wrapper {
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .lootbox-glow {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, var(--color-neon-magenta) 0%, transparent 70%);
+        opacity: 0.1;
+        transition: all 0.1s ease;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .lootbox {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotateX(-15deg) rotateY(45deg);
+        transition: transform 0.1s;
+        z-index: 2;
+    }
+
+    .lootbox-face {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        border: 2px solid var(--color-neon-magenta);
+        background: rgba(20, 20, 20, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-cyber);
+        font-weight: 800;
+        color: var(--color-neon-magenta);
+        box-shadow: inset 0 0 20px rgba(255, 0, 255, 0.2);
+    }
+
+    .front  { transform: rotateY(  0deg) translateZ(60px); }
+    .back   { transform: rotateY(180deg) translateZ(60px); }
+    .left   { transform: rotateY(-90deg) translateZ(60px); }
+    .right  { transform: rotateY( 90deg) translateZ(60px); }
+    .top    { transform: rotateX( 90deg) translateZ(60px); }
+    .bottom { transform: rotateX(-90deg) translateZ(60px); }
+
+    .instruction-text {
+        margin-top: 3rem;
+        font-family: var(--font-industrial);
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        color: var(--color-text-main);
+        text-align: center;
+        z-index: 2;
+    }
+
+    .progress-bar-container {
+        width: 200px;
+        height: 10px;
+        border: 1px solid var(--color-industrial-gray);
+        background: rgba(0,0,0,0.5);
+        margin-top: 1rem;
+        border-radius: 5px;
+        overflow: hidden;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .progress-bar-fill {
+        width: 0%;
+        height: 100%;
+        background: var(--color-neon-magenta);
+        box-shadow: 0 0 10px var(--color-neon-magenta);
+        transition: width 0.1s linear, background-color 0.3s;
+    }
+    
+    /* Used via JS */
+    .shake-1 { transform: rotateX(-15deg) rotateY(45deg) translate(2px, 2px); }
+    .shake-2 { transform: rotateX(-15deg) rotateY(45deg) translate(-2px, -2px); }
+    .shake-3 { transform: rotateX(-15deg) rotateY(45deg) translate(4px, -2px); }
+    .shake-4 { transform: rotateX(-15deg) rotateY(45deg) translate(-4px, 2px); }
+
+    /* Flash screen effect */
+    body.flash-overlay::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: var(--color-neon-green);
+        z-index: 9999;
+        pointer-events: none;
+        animation: flashAnim 0.8s ease-out forwards;
+    }
+
+    @keyframes flashAnim {
+        0% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+</style>
+
+<script>
+    import gsap from 'gsap';
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const wrapper = document.getElementById('lootbox-trigger');
+        const lootbox = document.getElementById('lootbox');
+        const glow = document.getElementById('lb-glow');
+        const progContainer = document.getElementById('progress-container');
+        const progFill = document.getElementById('progress-fill');
+        const instruction = document.getElementById('lb-instruction');
+        
+        if (!wrapper || !lootbox || !glow || !progContainer || !progFill || !instruction) return;
+
+        let charge = 0;
+        const maxCharge = 100;
+        let isCharging = false;
+        let chargeInterval: number | null = null;
+        let decayInterval: number | null = null;
+        let isOpened = false;
+
+        const updateVisuals = () => {
+            if (isOpened) return;
+
+            // Update Progress Bar
+            progFill.style.width = `${charge}%`;
+            
+            // Map charge (0-100) to effects
+            const intensity = charge / maxCharge;
+
+            // Glow increases in size and opacity
+            glow.style.transform = `translate(-50%, -50%) scale(${1 + intensity * 3})`;
+            glow.style.opacity = `${0.1 + intensity * 0.7}`;
+
+            // Color transition from Magenta to Green as it nears 100%
+            if (charge > 70) {
+                progFill.style.backgroundColor = 'var(--color-neon-green)';
+                progFill.style.boxShadow = '0 0 15px var(--color-neon-green)';
+                Array.from(document.getElementsByClassName('lootbox-face')).forEach((face: any) => {
+                    face.style.borderColor = 'var(--color-neon-green)';
+                    face.style.color = 'var(--color-neon-green)';
+                });
+            } else {
+                progFill.style.backgroundColor = 'var(--color-neon-magenta)';
+                progFill.style.boxShadow = '0 0 10px var(--color-neon-magenta)';
+                Array.from(document.getElementsByClassName('lootbox-face')).forEach((face: any) => {
+                    face.style.borderColor = 'var(--color-neon-magenta)';
+                    face.style.color = 'var(--color-neon-magenta)';
+                });
+            }
+
+            // CSS Shake based on charge
+            if (charge > 0 && charge < 100) {
+                const shakeClass = `shake-${Math.floor(Math.random() * 4) + 1}`;
+                lootbox.className = `lootbox ${shakeClass}`;
+            } else if (charge === 0) {
+                lootbox.className = 'lootbox';
+            }
+
+            // Explode!
+            if (charge >= maxCharge) {
+                explodeBox();
+            }
+        };
+
+        const addCharge = (amount: number) => {
+            if(isOpened) return;
+            charge = Math.min(charge + amount, maxCharge);
+            progContainer.style.opacity = "1";
+            instruction.style.opacity = "0";
+            updateVisuals();
+        };
+
+        const startCharging = () => {
+            if (isOpened) return;
+            isCharging = true;
+            if (decayInterval) clearInterval(decayInterval);
+            
+            // Increment logic for HOLD
+            chargeInterval = window.setInterval(() => {
+                addCharge(4); // Speed of holding
+            }, 50);
+
+            // Also add a chunk on initial CLICK
+            addCharge(10);
+        };
+
+        const stopCharging = () => {
+            if (isOpened) return;
+            isCharging = false;
+            if (chargeInterval) clearInterval(chargeInterval);
+            
+            // Decay logic if let go early
+            decayInterval = window.setInterval(() => {
+                if (charge > 0) {
+                    charge = Math.max(0, charge - 2);
+                    updateVisuals();
+                } else {
+                    if (decayInterval) clearInterval(decayInterval);
+                    progContainer.style.opacity = "0";
+                    instruction.style.opacity = "1";
+                }
+            }, 50);
+        };
+
+        const explodeBox = () => {
+            isOpened = true;
+            if (chargeInterval) clearInterval(chargeInterval);
+            if (decayInterval) clearInterval(decayInterval);
+
+            // 1. Flash effect on screen
+            document.body.classList.add('flash-overlay');
+            
+            // 2. Explode the box pieces using GSAP
+            const faces = document.querySelectorAll('.lootbox-face');
+            
+            gsap.to(glow, {
+                scale: 20,
+                opacity: 0,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+
+            gsap.to(faces, {
+                opacity: 0,
+                scale: 1.5,
+                x: () => (Math.random() - 0.5) * 500,
+                y: () => (Math.random() - 0.5) * 500,
+                z: () => (Math.random() - 0.5) * 500,
+                rotationX: () => Math.random() * 720,
+                rotationY: () => Math.random() * 720,
+                duration: 1,
+                ease: "expo.out",
+                stagger: 0.05,
+                onComplete: () => {
+                    wrapper.style.display = 'none';
+                    // 3. Dispatch global event to tell EventLineup to reveal cards
+                    window.dispatchEvent(new CustomEvent('lootbox-opened'));
+                }
+            });
+
+            // Cleanup flash class
+            setTimeout(() => {
+                document.body.classList.remove('flash-overlay');
+            }, 800);
+        };
+
+        // Desktop Events
+        wrapper.addEventListener('mousedown', startCharging);
+        window.addEventListener('mouseup', stopCharging);
+        
+        // Touch Events for Mobile
+        wrapper.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent scroll while tapping box
+            startCharging();
+        });
+        window.addEventListener('touchend', stopCharging);
+    });
+</script>
