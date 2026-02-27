@@ -2,8 +2,20 @@
 import events from '../data/prod.json';
 import EventLootBox from './EventLootBox.astro';
 
-// We initially only render these, but hide them with CSS/JS until the lootbox triggers.
-const initialEvents = events.slice(0, 6); // Just show the first 6 initially
+// Map price string like "$45" to rarity class
+const getRarityClass = (priceStr: string) => {
+    const price = parseInt(priceStr.replace('$', ''));
+    if (price <= 50) return 'rarity-common';
+    if (price <= 80) return 'rarity-rare';
+    if (price <= 110) return 'rarity-epic';
+    return 'rarity-legendary';
+};
+
+// Start by mapping 10 events to render hidden
+const initialEvents = events.slice(0, 10).map(e => ({
+    ...e,
+    rarityClass: getRarityClass(e.price)
+}));
 ---
 
 <section class="events-section" id="events">
@@ -12,9 +24,13 @@ const initialEvents = events.slice(0, 6); // Just show the first 6 initially
         
         <EventLootBox />
 
+        <div class="reveal-overlay" id="reveal-overlay" style="display: none;">
+            <div class="reveal-text glitch-effect" data-text="TAP TO REVEAL EVENT">TAP TO REVEAL EVENT</div>
+        </div>
+
         <div class="events-grid" id="events-grid" style="display: none;">
             {initialEvents.map((event, index) => (
-                <article class="event-card" data-index={index}>
+                <article class={`event-card ${event.rarityClass} hidden-card`} data-index={index}>
                     <div class="event-glow"></div>
                     <div class="event-content">
                         <div class="event-header">
@@ -25,7 +41,7 @@ const initialEvents = events.slice(0, 6); // Just show the first 6 initially
                         <p class="event-location">{event.location}</p>
                         <div class="event-footer">
                             <span class="event-price">{event.price}</span>
-                            <button class="btn-buy">GET TICKETS</button>
+                            <span class="rarity-badge"></span>
                         </div>
                     </div>
                 </article>
@@ -150,6 +166,72 @@ const initialEvents = events.slice(0, 6); // Just show the first 6 initially
         color: var(--color-bg-dark);
         box-shadow: 0 0 15px var(--color-neon-green);
     }
+    .hidden-card {
+        display: none; /* Controlled by JS during reveal */
+        opacity: 0;
+        transform: scale(0.5) translateY(-100px);
+    }
+
+    .reveal-overlay {
+        width: 100%;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin-bottom: 2rem;
+        background: rgba(57, 255, 20, 0.05);
+        border: 1px dashed var(--color-neon-green);
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+
+    .reveal-overlay:hover {
+        background: rgba(57, 255, 20, 0.15);
+    }
+
+    .reveal-text {
+        font-family: var(--font-cyber);
+        font-size: 1.5rem;
+        color: var(--color-neon-green);
+        letter-spacing: 2px;
+        pointer-events: none;
+    }
+
+    /* Rarity Styles */
+    /* Common */
+    .rarity-common { border-color: rgba(200, 200, 200, 0.3); }
+    .rarity-common .event-glow { background: #aaaaaa; }
+    .rarity-common .rarity-badge::after { content: 'COMMON'; color: #aaaaaa; font-family: var(--font-industrial); font-size: 0.8rem; font-weight: bold;}
+    .rarity-common .event-price { color: #aaaaaa; }
+
+    /* Rare */
+    .rarity-rare { border-color: rgba(0, 150, 255, 0.4); }
+    .rarity-rare .event-glow { background: #0096ff; }
+    .rarity-rare .rarity-badge::after { content: 'RARE'; color: #0096ff; font-family: var(--font-industrial); font-size: 0.8rem; font-weight: bold;}
+    .rarity-rare .event-price { color: #0096ff; }
+    .rarity-rare:hover { box-shadow: 0 0 15px rgba(0, 150, 255, 0.3); }
+
+    /* Epic */
+    .rarity-epic { border-color: rgba(255, 0, 255, 0.5); }
+    .rarity-epic .event-glow { background: #ff00ff; }
+    .rarity-epic .rarity-badge::after { content: 'EPIC'; color: #ff00ff; font-family: var(--font-industrial); font-size: 0.8rem; font-weight: bold; text-shadow: 0 0 5px #ff00ff;}
+    .rarity-epic .event-price { color: #ff00ff; }
+    .rarity-epic:hover { box-shadow: 0 0 20px rgba(255, 0, 255, 0.4); }
+
+    /* Legendary */
+    .rarity-legendary { border-color: rgba(255, 140, 0, 0.8); background: rgba(50, 25, 0, 0.8); }
+    .rarity-legendary .event-glow { background: #ff8c00; animation: legendPulse 2s infinite alternate; }
+    .rarity-legendary .rarity-badge::after { content: 'LEGENDARY'; color: #ff8c00; font-family: var(--font-cyber); font-size: 1rem; font-weight: 800; text-shadow: 0 0 10px #ff8c00;}
+    .rarity-legendary .event-price { color: #ff8c00; text-shadow: 0 0 10px #ff8c00; }
+    .rarity-legendary .event-title { color: #ffcc00; }
+    .rarity-legendary:hover { transform: translateY(-15px) scale(1.02); box-shadow: 0 0 30px rgba(255, 140, 0, 0.6); }
+
+    @keyframes legendPulse {
+        0% { opacity: 0.3; transform: scale(1); }
+        100% { opacity: 0.8; transform: scale(1.2); }
+    }
+
 </style>
 
 <script>
@@ -157,31 +239,87 @@ const initialEvents = events.slice(0, 6); // Just show the first 6 initially
 
     document.addEventListener("DOMContentLoaded", () => {
         const eventsGrid = document.getElementById('events-grid');
-        if (!eventsGrid) return;
+        const revealOverlay = document.getElementById('reveal-overlay');
+        if (!eventsGrid || !revealOverlay) return;
 
-        // Listen for the lootbox event
-        window.addEventListener('lootbox-opened', () => {
-            // Unhide the grid
-            eventsGrid.style.display = 'grid';
+        let currentIndex = 0;
+        const cards = Array.from(document.querySelectorAll('.event-card')) as HTMLElement[];
 
-            // GSAP Stagger Reveal (The Drops)
-            const cards = gsap.utils.toArray('.event-card');
-            
-            // Set initial state for animation
-            gsap.set(cards, { y: -100, scale: 0.8, opacity: 0 });
+        // Flash screen effect function
+        const triggerFlash = (color: string) => {
+            const flash = document.createElement('div');
+            flash.style.position = 'fixed';
+            flash.style.top = '0';
+            flash.style.left = '0';
+            flash.style.width = '100vw';
+            flash.style.height = '100vh';
+            flash.style.backgroundColor = color;
+            flash.style.zIndex = '9999';
+            flash.style.pointerEvents = 'none';
+            document.body.appendChild(flash);
 
-            // Drop them in one by one dynamically
-            gsap.to(cards, {
-                y: 0,
-                scale: 1,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: "back.out(1.7)", // Dopamine bounce effect
-                onComplete: () => {
-                   // Clean up inline styles from GSAP if needed
-                }
+            gsap.to(flash, {
+                opacity: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                onComplete: () => flash.remove()
             });
+        };
+
+        // Get rarity color from class
+        const getCardColor = (card: HTMLElement) => {
+            if (card.classList.contains('rarity-legendary')) return '#ff8c00';
+            if (card.classList.contains('rarity-epic')) return '#ff00ff';
+            if (card.classList.contains('rarity-rare')) return '#0096ff';
+            return '#ffffff'; // Common
+        };
+
+        // Listen for the lootbox event fully opening
+        window.addEventListener('lootbox-opened', () => {
+            eventsGrid.style.display = 'grid';
+            revealOverlay.style.display = 'flex';
+        });
+
+        // Click to reveal 1 by 1
+        revealOverlay.addEventListener('click', () => {
+            if (currentIndex >= cards.length) {
+                revealOverlay.style.display = 'none'; // Done
+                return;
+            }
+
+            const targetCard = cards[currentIndex];
+            targetCard.style.display = 'block'; // Make it part of grid
+            const flashColor = getCardColor(targetCard);
+            
+            triggerFlash(flashColor);
+
+            // GSAP extreme bounce
+            gsap.fromTo(targetCard, 
+                { y: -200, scale: 0.2, opacity: 0, rotationX: 45, filter: "brightness(3)" },
+                { 
+                    y: 0, 
+                    scale: 1, 
+                    opacity: 1, 
+                    rotationX: 0,
+                    filter: "brightness(1)",
+                    duration: 1.2, 
+                    ease: "elastic.out(1, 0.4)",
+                    onComplete: () => {
+                        // Small shake after landing for Epic/Legendary
+                        if(targetCard.classList.contains('rarity-epic') || targetCard.classList.contains('rarity-legendary')) {
+                            gsap.fromTo(targetCard, 
+                                { x: -5 }, 
+                                { x: 5, yoyo: true, repeat: 5, duration: 0.05, ease: "none" }
+                            );
+                        }
+                    }
+                }
+            );
+
+            currentIndex++;
+            if (currentIndex >= cards.length) {
+                gsap.to(revealOverlay, { opacity: 0, duration: 0.5, onComplete: () => revealOverlay.style.display = 'none' });
+            }
         });
     });
 </script>
