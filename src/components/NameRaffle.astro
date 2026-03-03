@@ -1,0 +1,304 @@
+---
+---
+
+<section class="raffle-section" id="raffle">
+    <div class="container">
+        
+        <div class="raffle-terminal">
+            <div class="terminal-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="title">RND_SEQUENCE.exe</span>
+            </div>
+            
+            <div class="terminal-body">
+                <h2 class="glitch-effect" data-text="RANDOMIZER">RANDOMIZER</h2>
+                
+                <div class="input-group">
+                    <label for="name-list">INPUT SUBJECT VARIABLES (COMMA OR NEWLINE SEPARATED):</label>
+                    <textarea id="name-list" rows="6" placeholder="Alice\nBob\nCharlie..."></textarea>
+                </div>
+
+                <div class="action-area">
+                    <button id="run-raffle" class="btn-cyber">EXECUTE RANDOM()</button>
+                </div>
+
+                <div class="result-display">
+                    <div class="label">OUTPUT // WINNER:</div>
+                    <div id="raffle-result" class="result text-glitch">AWAITING INPUT...</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    .raffle-section {
+        padding: 6rem 2rem;
+        background: url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="%23050505"/><circle cx="10" cy="10" r="1" fill="%23333"/></svg>');
+        position: relative;
+        z-index: 20;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .raffle-terminal {
+        background: rgba(10, 10, 10, 0.9);
+        border: 1px solid #333;
+        border-radius: 8px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(57, 255, 20, 0.2);
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
+
+    .terminal-header {
+        background: #111;
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid #333;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+
+    .terminal-header .title {
+        margin-left: 1rem;
+        font-family: var(--font-industrial);
+        color: #888;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    .terminal-body {
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .terminal-body h2 {
+        font-size: 2.5rem;
+        color: var(--color-neon-green);
+        text-align: center;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+    }
+
+    .input-group label {
+        display: block;
+        font-family: var(--font-industrial);
+        color: var(--color-neon-cyan, #0ff);
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+    }
+
+    textarea {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid #444;
+        color: var(--color-neon-green);
+        font-family: monospace;
+        padding: 1rem;
+        font-size: 1.1rem;
+        resize: vertical;
+        outline: none;
+        transition: border-color 0.3s ease;
+    }
+
+    textarea:focus {
+        border-color: var(--color-neon-cyan, #0ff);
+        box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+    }
+    
+    textarea::placeholder {
+        color: #444;
+    }
+
+    .action-area {
+        text-align: center;
+    }
+
+    .btn-cyber {
+        background: transparent;
+        color: var(--color-neon-cyan, #0ff);
+        border: 2px solid var(--color-neon-cyan, #0ff);
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        font-family: var(--font-industrial);
+        font-weight: bold;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-cyber::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .btn-cyber:hover {
+        background: var(--color-neon-cyan, #0ff);
+        color: #000;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+    }
+
+    .btn-cyber:hover::before {
+        left: 100%;
+    }
+    
+    .btn-cyber:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .result-display {
+        background: #000;
+        border: 1px solid #333;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .result-display .label {
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        background: #000;
+        padding: 0 10px;
+        font-family: var(--font-industrial);
+        font-size: 0.8rem;
+        color: #888;
+        letter-spacing: 2px;
+    }
+
+    .result {
+        font-size: 3rem;
+        font-family: var(--font-cyber);
+        color: var(--color-text-main);
+        word-break: break-word;
+        min-height: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .result.winner {
+        color: var(--color-neon-green);
+        animation: pulseWinner 1s ease infinite alternate;
+        text-shadow: 0 0 20px var(--color-neon-green);
+    }
+    
+    .result.error {
+        color: var(--color-neon-magenta);
+        font-size: 1.5rem;
+    }
+
+    @keyframes pulseWinner {
+        from { transform: scale(1); }
+        to { transform: scale(1.05); }
+    }
+
+    @media (max-width: 768px) {
+        .terminal-body {
+            padding: 1.5rem;
+        }
+        .terminal-body h2 {
+            font-size: 2rem;
+        }
+        .result {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById('run-raffle') as HTMLButtonElement | null;
+        const textarea = document.getElementById('name-list') as HTMLTextAreaElement | null;
+        const resultDisplay = document.getElementById('raffle-result');
+
+        if (!btn || !textarea || !resultDisplay) return;
+
+        let isRaffling = false;
+
+        btn.addEventListener('click', () => {
+            if (isRaffling) return;
+
+            const text = textarea.value;
+            // Split by comma or newline, trim spaces, filter out empties
+            const names = text.split(/[\n,]+/).map(n => n.trim()).filter(n => n.length > 0);
+
+            if (names.length === 0) {
+                resultDisplay.textContent = "ERR: NO VALID INPUT";
+                resultDisplay.className = "result error";
+                return;
+            }
+
+            if (names.length === 1) {
+                resultDisplay.textContent = names[0];
+                resultDisplay.className = "result winner";
+                return;
+            }
+
+            isRaffling = true;
+            btn.disabled = true;
+            resultDisplay.className = "result text-glitch";
+            textarea.disabled = true;
+
+            // Animation Config
+            const duration = 3000; // 3 seconds
+            const intervalTime = 50; // Change name every 50ms
+            let elapsed = 0;
+
+            // Randomizing interval
+            const interval = setInterval(() => {
+                const randomIdx = Math.floor(Math.random() * names.length);
+                let displayStr = names[randomIdx];
+                
+                // Add some fake hex data to make it look cool randomly
+                if(Math.random() > 0.5) {
+                    displayStr = `0x${Math.floor(Math.random()*16777215).toString(16).toUpperCase()} // ` + displayStr;
+                }
+                
+                resultDisplay.textContent = displayStr;
+                elapsed += intervalTime;
+
+                if (elapsed >= duration) {
+                    clearInterval(interval);
+                    
+                    // Final winner
+                    const winnerIdx = Math.floor(Math.random() * names.length);
+                    resultDisplay.textContent = names[winnerIdx];
+                    resultDisplay.className = "result winner";
+                    
+                    isRaffling = false;
+                    btn.disabled = false;
+                    textarea.disabled = false;
+                }
+            }, intervalTime);
+        });
+    });
+</script>

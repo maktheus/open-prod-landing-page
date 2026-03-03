@@ -1,0 +1,470 @@
+---
+// Generate dummy nominees for the "Paredão"
+const nominees = Array.from({ length: 9 }, (_, i) => ({
+  id: i + 1,
+  name: `NOMINEE // 00${i + 1}`,
+  imgPlaceholder: `https://api.dicebear.com/7.x/bottts/svg?seed=Paredao${i}&backgroundColor=transparent`
+}));
+---
+
+<section class="voting-section" id="voting">
+    <div class="container">
+        
+        <div class="header-box">
+            <h2 class="glitch-effect" data-text="PAREDÃO PROTOCOL">PAREDÃO PROTOCOL</h2>
+            <p class="subtitle">SELECT EXACTLY <span class="highlight">3</span> TARGETS FOR ELIMINATION</p>
+        </div>
+
+        <div class="voting-grid">
+            {nominees.map((nominee) => (
+                <div class="vote-card" data-id={nominee.id}>
+                    <div class="image-wrapper">
+                        <img src={nominee.imgPlaceholder} alt={nominee.name} />
+                        <div class="selection-overlay">
+                            <span class="selection-text">TARGET LOCKED</span>
+                        </div>
+                    </div>
+                    <div class="nominee-info">
+                        <h3>{nominee.name}</h3>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        <div class="action-bar" id="selection-action-bar">
+            <div class="status-counter">
+                SELECTED: <span id="vote-count" class="count">0</span> / 3
+            </div>
+            <button id="submit-vote" class="btn-neon" disabled>INITIATE PURGE</button>
+        </div>
+
+        <!-- Phase 2: Voting -->
+        <div id="voting-phase-2" class="voting-phase-2 hidden">
+            <div class="header-box">
+                <h3 class="glitch-effect" data-text="EXECUTE TARGET">EXECUTE TARGET</h3>
+                <p class="subtitle">CAST YOUR FINAL VOTE</p>
+            </div>
+            <div class="final-vote-grid" id="final-vote-container">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    .voting-section {
+        padding: 6rem 2rem;
+        background: radial-gradient(circle at center, #110011 0%, #050505 100%);
+        position: relative;
+        z-index: 20;
+        border-top: 1px solid rgba(255, 0, 255, 0.2);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .header-box {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .header-box h2 {
+        font-size: 3.5rem;
+        color: var(--color-text-main);
+        font-family: var(--font-cyber);
+        margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+        font-family: var(--font-industrial);
+        font-size: 1.2rem;
+        color: #888;
+        letter-spacing: 2px;
+    }
+    
+    .highlight {
+        color: var(--color-neon-magenta);
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    .voting-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 2rem;
+    }
+
+    .vote-card {
+        background: rgba(10, 10, 10, 0.8);
+        border: 1px solid #333;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .vote-card:hover:not(.disabled) {
+        border-color: rgba(57, 255, 20, 0.5);
+        transform: translateY(-5px);
+    }
+
+    /* Selected State */
+    .vote-card.selected {
+        border-color: var(--color-neon-magenta);
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+    }
+
+    /* Disabled State (when 3 are selected) */
+    .vote-card.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        filter: grayscale(100%);
+    }
+
+    .image-wrapper {
+        position: relative;
+        width: 100%;
+        padding-top: 100%;
+        background: #000;
+    }
+
+    .image-wrapper img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(80%) sepia(20%) hue-rotate(280deg);
+        transition: filter 0.3s ease;
+    }
+
+    .vote-card:hover:not(.disabled) img {
+        filter: grayscale(0%);
+    }
+
+    .selection-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 0, 255, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        backdrop-filter: blur(2px);
+    }
+
+    .vote-card.selected .selection-overlay {
+        opacity: 1;
+    }
+
+    .selection-text {
+        font-family: var(--font-industrial);
+        color: #fff;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px var(--color-neon-magenta);
+        transform: scale(0.8);
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .vote-card.selected .selection-text {
+        transform: scale(1);
+    }
+
+    .nominee-info {
+        padding: 1rem;
+        text-align: center;
+        border-top: 1px solid #333;
+    }
+
+    .nominee-info h3 {
+        color: var(--color-text-main);
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .vote-card.selected .nominee-info h3 {
+        color: var(--color-neon-magenta);
+    }
+
+    .action-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(5, 5, 5, 0.8);
+        padding: 1.5rem 3rem;
+        border: 1px solid #333;
+        border-radius: 4px;
+        margin-top: 2rem;
+    }
+
+    .status-counter {
+        font-family: var(--font-industrial);
+        font-size: 1.5rem;
+        color: #aaa;
+    }
+
+    .status-counter .count {
+        color: var(--color-neon-green);
+        font-weight: bold;
+        font-size: 2rem;
+    }
+    
+    .status-counter.maxed .count {
+        color: var(--color-neon-magenta);
+        text-shadow: 0 0 10px var(--color-neon-magenta);
+    }
+
+    .btn-neon {
+        padding: 1rem 3rem;
+        font-size: 1.2rem;
+        font-family: var(--font-industrial);
+        letter-spacing: 3px;
+        background: transparent;
+        color: #555;
+        border: 1px solid #555;
+        cursor: not-allowed;
+        transition: all 0.3s ease;
+    }
+
+    .btn-neon:not([disabled]) {
+        color: var(--color-bg-dark);
+        background: var(--color-neon-magenta);
+        border-color: var(--color-neon-magenta);
+        box-shadow: 0 0 15px var(--color-neon-magenta);
+        cursor: pointer;
+    }
+    
+    .btn-neon:not([disabled]):hover {
+        background: #fff;
+        box-shadow: 0 0 25px var(--color-neon-magenta);
+    }
+
+    /* Phase 2 Styles */
+    .hidden {
+        display: none !important;
+    }
+
+    .voting-phase-2 {
+        margin-top: 4rem;
+        padding-top: 4rem;
+        border-top: 1px dashed rgba(57, 255, 20, 0.4);
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .final-vote-grid {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .final-vote-card {
+        background: rgba(10, 10, 10, 0.9);
+        border: 2px solid #555;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        width: 250px;
+        transition: all 0.3s ease;
+    }
+
+    .final-vote-card img {
+        width: 100%;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        filter: grayscale(100%);
+        transition: filter 0.3s ease;
+    }
+
+    .final-vote-card:hover {
+        border-color: #ff00ff;
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+    }
+    
+    .final-vote-card:hover img {
+        filter: grayscale(0%);
+    }
+
+    .final-vote-btn {
+        margin-top: 1rem;
+        width: 100%;
+        padding: 0.8rem;
+        background: transparent;
+        color: #ff00ff;
+        border: 1px solid #ff00ff;
+        font-family: var(--font-industrial);
+        font-weight: bold;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .final-vote-btn:hover {
+        background: #ff00ff;
+        color: #000;
+    }
+
+    @media (max-width: 768px) {
+        .action-bar {
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .header-box h2 {
+            font-size: 2.5rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll('.vote-card');
+        const submitBtn = document.getElementById('submit-vote') as HTMLButtonElement | null;
+        const countDisplay = document.getElementById('vote-count');
+        const phase2Container = document.getElementById('voting-phase-2');
+        const finalVoteContainer = document.getElementById('final-vote-container');
+        const selectionActionBar = document.getElementById('selection-action-bar');
+        const MAX_SELECTIONS = 3;
+        
+        let selectedIds = new Set<string>();
+        // Get full nominee data passed from Astro
+        const nomineesData = Array.from(cards).map(card => {
+            const imgEl = card.querySelector('img');
+            const nameEl = card.querySelector('h3');
+            return {
+                id: card.getAttribute('data-id'),
+                name: nameEl ? nameEl.textContent : '',
+                img: imgEl ? imgEl.src : ''
+            };
+        });
+
+        function updateUI() {
+            if (!countDisplay || !submitBtn) return;
+            
+            countDisplay.textContent = selectedIds.size.toString();
+            
+            const isMaxed = selectedIds.size === MAX_SELECTIONS;
+            
+            if (isMaxed) {
+                countDisplay.parentElement?.classList.add('maxed');
+                submitBtn.disabled = false;
+                submitBtn.textContent = "CONFIRM 3 TARGETS";
+            } else {
+                countDisplay.parentElement?.classList.remove('maxed');
+                submitBtn.disabled = true;
+                submitBtn.textContent = "INITIATE PURGE";
+            }
+
+            // Disable unselected cards if max reached
+            cards.forEach(card => {
+                const id = card.getAttribute('data-id');
+                if (id && !selectedIds.has(id) && isMaxed) {
+                    card.classList.add('disabled');
+                } else {
+                    card.classList.remove('disabled');
+                }
+            });
+        }
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Ignore clicks if phase 2 is active
+                if (phase2Container && !phase2Container.classList.contains('hidden')) return;
+
+                const id = card.getAttribute('data-id');
+                if (!id) return;
+
+                if (selectedIds.has(id)) {
+                    // Deselect
+                    selectedIds.delete(id);
+                    card.classList.remove('selected');
+                } else {
+                    // Select (if limit not reached)
+                    if (selectedIds.size < MAX_SELECTIONS) {
+                        selectedIds.add(id);
+                        card.classList.add('selected');
+                    }
+                }
+                
+                updateUI();
+            });
+        });
+
+        if (submitBtn) {
+            submitBtn.addEventListener('click', () => {
+                if (selectedIds.size === MAX_SELECTIONS && phase2Container && finalVoteContainer && selectionActionBar) {
+                    // Start Phase 2: Final Vote
+                    
+                    // 1. Hide the action bar
+                    selectionActionBar.style.display = 'none';
+                    
+                    // 2. Disable further selection
+                    cards.forEach(c => c.classList.add('disabled'));
+
+                    // 3. Populate and show phase 2
+                    finalVoteContainer.innerHTML = '';
+                    
+                    const selectedNominees = nomineesData.filter(n => n.id && selectedIds.has(n.id));
+                    
+                    selectedNominees.forEach(nominee => {
+                        const cardHtml = `
+                            <div class="final-vote-card">
+                                <img src="${nominee.img}" alt="${nominee.name}" />
+                                <h3>${nominee.name}</h3>
+                                <button class="final-vote-btn" data-vote-id="${nominee.id}">VOTE NOW</button>
+                            </div>
+                        `;
+                        finalVoteContainer.insertAdjacentHTML('beforeend', cardHtml);
+                    });
+
+                    phase2Container.classList.remove('hidden');
+                    
+                    // Scroll to it softly
+                    setTimeout(() => phase2Container.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+
+                    // Attach click handlers to new vote buttons
+                    const voteButtons = finalVoteContainer.querySelectorAll('.final-vote-btn');
+                    voteButtons.forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const targetBtn = e.target as HTMLButtonElement;
+                            const voteId = targetBtn.getAttribute('data-vote-id');
+                            const votedNominee = selectedNominees.find(n => n.id === voteId);
+                            
+                            if (votedNominee) {
+                                alert(`VOTE CAST FOR: ${votedNominee.name}\n\nTERMINATION SEQUENCE ENGAGED.`);
+                                // Reset everything
+                                selectedIds.clear();
+                                cards.forEach(c => {
+                                    c.classList.remove('selected');
+                                    c.classList.remove('disabled');
+                                });
+                                phase2Container.classList.add('hidden');
+                                selectionActionBar.style.display = 'flex';
+                                updateUI();
+                            }
+                        });
+                    });
+                }
+            });
+        }
+    });
+</script>
